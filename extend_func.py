@@ -16,8 +16,8 @@ def h_down(url):
 def send_mail(message):
     smtp_obj = smtplib.SMTP('smtp.gmail.com',587)
     smtp_obj.starttls()
-    smtp_obj.login("joseph.merigala@gmail.com","nwgnxkvqsyvaehij")
-    smtp_obj.sendmail("joseph.merigala@gmail.com","joseph.merigala@gmail.com", message)
+    smtp_obj.login("src@gmail.com","<pass-key>")
+    smtp_obj.sendmail("src@gmail.com","src@gmail.com", message)
     smtp_obj.quit()
 
 def write_to_local(message):
