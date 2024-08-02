@@ -45,6 +45,8 @@ class Server:
         print("[+] Recieved a connection from -> "+str(ip_addr))
         while True:
             cmd = input(">> ").split()
+            if len(cmd) == 0:
+                continue
             if cmd[0] == "exit":
                 self.reliable_send(cmd)
                 self.client_obj.close()
