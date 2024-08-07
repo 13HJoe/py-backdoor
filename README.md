@@ -1,8 +1,9 @@
 ## py-backdoor
 - Initial Execution
-- ![Screenshot 2024-08-07 002322.png](./assets/Screenshot_2024-08-07_002322_1722970924517_0.png)
-- Execution after Boot [ Windows-Persistence]
 - ![Screenshot 2024-08-07 002050.png](./assets/Screenshot_2024-08-07_002050_1722970918144_0.png)
+- Execution after Boot [ Windows-Persistence]
+- ![Screenshot 2024-08-07 002322.png](./assets/Screenshot_2024-08-07_002322_1722970924517_0.png)
+
 ### </>
 - **WiFi-Password Extraction**
 	- To show all networks - `netsh wlan show profile`
