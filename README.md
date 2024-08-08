@@ -1,9 +1,8 @@
 ## py-backdoor
 - Initial Execution
-- ![Screenshot 2024-08-07 002050.png](./assets/Screenshot_2024-08-07_002050_1722970918144_0.png)
+- ![Screenshot 2024-08-08 125205.png](./assets/Screenshot_2024-08-08_125205_1723103941525_0.png)
 - Execution after Boot [ Windows-Persistence]
-- ![Screenshot 2024-08-07 002322.png](./assets/Screenshot_2024-08-07_002322_1722970924517_0.png)
-
+- ![Screenshot 2024-08-08 125543.png](../assets/Screenshot_2024-08-08_125543_1723103929817_0.png)
 ### </>
 - **WiFi-Password Extraction**
 	- To show all networks - `netsh wlan show profile`
@@ -41,8 +40,8 @@
 	- checks to see if backdoor is already present in `appdata` directory
 	- if not present it downloads the file from the attacker's python server where both thr `.exe` and `image.png` are served
 - Disadvantages with previous build
-	- The target need an internet connection when running the trojan
-	- Malware files have to be accessible via direct URL
+	- The target needs an internet connection when running the trojan
+	- Malware files have to be hosted
 ### Packaging - Combine Dummy w/ Backdoor
 - `pyinstaller --add-data "../dummy/image.png:." --onefile --noconsole backdoor.py -n scheduler.exe`
 	- `--add-file` - `src-file-path:.` ; `:.` tell pyinstaller to keep the front files in the default application temp directory
