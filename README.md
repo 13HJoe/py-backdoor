@@ -1,8 +1,8 @@
 ## py-backdoor
 - Initial Execution
-  ![Screenshot 2024-08-08 125205.png](./assets/Screenshot_2024-08-08_125205_1723103941525_0.png)
+- ![Screenshot 2024-08-08 125205.png](./assets/Screenshot_2024-08-08_125205_1723103941525_0.png)
 - Execution after Boot [ Windows-Persistence]
-  ![Screenshot 2024-08-08 125543.png](./assets/Screenshot_2024-08-08_125543_1723103929817_0.png)
+- ![Screenshot 2024-08-08 125543.png](./assets/Screenshot_2024-08-08_125543_1723103929817_0.png)
 ### </>
 - **WiFi-Password Extraction**
 	- To show all networks 
